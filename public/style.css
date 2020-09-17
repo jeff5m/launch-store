@@ -2,7 +2,7 @@
 
 :root {
   --primary-color: #FD951F;
-  --secondary-color: #1FD4FD;
+  --secondary-color: #1F83FD;
 }
 
 * {
@@ -58,6 +58,22 @@ body {
 
 .button:hover {
   background-color: #D7780B;
+}
+
+.button.edit {
+  background-color: var(--secondary-color);
+}
+
+.button.edit:hover {
+  background-color: #065AC1;
+}
+
+.button.delete {
+ background-color:lightgray; 
+}
+
+.button.delete:hover {
+  background-color: #DF3E3E;
 }
 
 /* === HEADER === */
@@ -161,6 +177,10 @@ section.form .header h3 {
   margin-bottom: 16px;
 }
 
+form .fields {
+  margin-bottom: 64px;
+}
+
 form .item {
   margin-bottom: 16px;
 }
@@ -209,6 +229,20 @@ form .item textarea {
   resize: none;
 }
 
-form .fields {
-  margin-bottom: 64px;
+form .item span {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  border-radius: 16px;
+  color: white;
+  margin-right: 4px;
+  margin-top: 8px;
+  display: inline-block;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+form .item span input[type="radio"] {
+  margin-right: 4px; 
+  vertical-align: middle; 
 }

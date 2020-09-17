@@ -5,7 +5,10 @@ const ProductController = require('./app/controllers/ProductController')
 routes.get('/', (req, res) => {
   return res.render('layout.njk')
 })
+
 routes.get('/products/create', ProductController.create)
+routes.get('/products/:id/edit', ProductController.edit)
+routes.put('/products', ProductController.put)
 routes.post('/products', ProductController.post)
 
 routes.get('/ads/create', (req,res) => {
