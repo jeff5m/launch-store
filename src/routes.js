@@ -1,5 +1,7 @@
 const express = require('express')
 const routes = express.Router()
+const multer = require('./app/middlewares/multer')
+
 const ProductController = require('./app/controllers/ProductController')
 
 routes.get('/', (req, res) => {
@@ -8,8 +10,8 @@ routes.get('/', (req, res) => {
 
 routes.get('/products/create', ProductController.create)
 routes.get('/products/:id/edit', ProductController.edit)
-routes.put('/products', ProductController.put)
-routes.post('/products', ProductController.post)
+routes.put('/products', multer.array("photos", 6), ProductController.put)
+routes.post('/products', multer.array("photos", 6), ProductController.post)
 routes.delete('/products', ProductController.delete)
 
 routes.get('/ads/create', (req,res) => {
