@@ -27,7 +27,7 @@ module.exports = {
 		
 		if (req.files.length == 0) {
 			return res.send('Please, send at least one image')
-		}	
+		}
 		
 		req.body.price = req.body.price.replace(/\D/g, '')
 		

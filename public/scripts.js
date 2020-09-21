@@ -11,43 +11,42 @@ const Mask = {
       style: 'currency',
       currency: 'BRL'
     }).format(value/100)
-
   }
 }
 
 const PhotosUpload = {
-  input: '',
-  preview:  document.querySelector('#photos-preview'),
+  input: "",
+  preview: document.querySelector('#photos-preview'),
   uploadLimit: 6,
   files: [],
   handleFileInput(event) {
     const { files: fileList } = event.target
     PhotosUpload.input = event.target
 
-    if (PhotosUpload.hasLimit(event))
-      return
+    if (PhotosUpload.hasLimit(event)) return
 
-    Array.from(fileList).forEach((file) => {
-
+    Array.from(fileList).forEach(file => {
+      
       PhotosUpload.files.push(file)
-
+      
       const reader = new FileReader()
 
       reader.onload = () => {
         const image = new Image()
         image.src = String(reader.result)
 
-        const container = PhotosUpload.getContainer(image)
-        PhotosUpload.preview.appendChild(container)
+        const div = PhotosUpload.getContainer(image)
+        PhotosUpload.preview.appendChild(div)
       }
 
       reader.readAsDataURL(file)
-    })    
-
+    })
+  
     PhotosUpload.input.files = PhotosUpload.getAllFiles()
   },
   hasLimit(event) {
-    const { uploadLimit, input: fileList, preview } = PhotosUpload
+    const { uploadLimit, input, preview } = PhotosUpload
+    const { files: fileList } = input
 
     if (fileList.length > uploadLimit) {
       alert(`Envie no máximo ${uploadLimit} fotos`)
@@ -56,15 +55,14 @@ const PhotosUpload = {
     }
 
     const photosDiv = []
-    preview.childNodes.forEach((item) => {
-      if (item.classList && item.classList == 'photo')
+    preview.childNodes.forEach(item => {
+      if (item.classList && item.classList.value == 'photo')
         photosDiv.push(item)
     })
-
+    
     const totalPhotos = fileList.length + photosDiv.length
-
     if (totalPhotos > uploadLimit) {
-      alert(`Você ultrapassou o limite máximo de ${uploadLimit} fotos`)
+      alert ("Você atingiu o limite máximo de fotos")
       event.preventDefault()
       return true
     }
@@ -72,29 +70,28 @@ const PhotosUpload = {
     return false
   },
   getAllFiles() {
-    const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer()
+    const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer()
 
-    PhotosUpload.files.forEach((file) => dataTransfer.items.add(file))
+    PhotosUpload.files.forEach(file => dataTransfer.items.add(file))
 
     return dataTransfer.files
   },
   getContainer(image) {
-    const container = document.createElement('div')
-    container.classList.add('photo')
+    const div = document.createElement('div')
+    div.classList.add('photo')
 
-    container.onclick = PhotosUpload.removePhoto
+    div.onclick = PhotosUpload.removePhoto
 
-    container.appendChild(image)
+    div.appendChild(image)
+
+    div.appendChild(PhotosUpload.getRemoveButton())
     
-    container.appendChild(PhotosUpload.getRemoveButton())
-
-    return container
+    return div
   },
   getRemoveButton() {
     const button = document.createElement('i')
     button.classList.add('material-icons')
-    button.innerHTML = 'close'
-    
+    button.innerHTML = "close"
     return button
   },
   removePhoto(event) {
@@ -107,4 +104,5 @@ const PhotosUpload = {
 
     photoDiv.remove()
   }
+
 }
