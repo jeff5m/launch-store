@@ -82,6 +82,13 @@ module.exports = {
 				return res.send('Please, fill all the fields!')
 		}
 
+		if (req.files.length != 0) {
+			const newFilesPromise = req.files.map(file => 
+				File.create({...file, product_id: req.body.id}))
+
+			await Promise.all(newFilesPromise)
+		}
+
 		if (req.body.removed_files) {
 			const removedFiles = req.body.removed_files.split(",")
 			const lastIndex = removedFiles.length - 1
