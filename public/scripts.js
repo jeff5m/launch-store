@@ -11,6 +11,49 @@ const Mask = {
       style: 'currency',
       currency: 'BRL'
     }).format(value/100)
+  },
+  cpfCnpj(value) {
+    value = value.replace(/\D/g, '')
+
+    if(value.length > 14)
+      value = value.slice(0, -1)
+
+
+    // check if is cnpj - 12.123.123/1234-12
+    if(value.length > 11) {
+      value = value.replace(/(\d{2})(\d)/, '$1.$2')
+      // 12.123123123412
+
+      value = value.replace(/(\d{3})(\d)/, '$1.$2')
+      // 12.123.123123412
+
+      value = value.replace(/(\d{3})(\d)/, '$1/$2')
+      // 12.123.123/123412
+      
+      value = value.replace(/(\d{4})(\d)/, '$1-$2')
+      // 12.123.123/1234-12
+
+    } else { //cpf 123.123.123-12
+      value = value.replace(/(\d{3})(\d)/, '$1.$2')
+      // 123.12312312
+      
+      value = value.replace(/(\d{3})(\d)/, '$1.$2')
+      // 123.123.12312
+
+      value = value.replace(/(\d{3})(\d)/, '$1-$2')
+      // 123.123.123-12
+    }
+
+    return value
+  },
+  cep(value) {
+    value = value.replace(/\D/g, '')
+    
+    if(value.length > 9)
+    value = value.slice(0, -1)
+
+    value = value.replace(/(\d{5})(\d)/, '$1-$2')
+    return value
   }
 }
 
