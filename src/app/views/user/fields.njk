@@ -18,6 +18,8 @@
       name="email"
       placeholder="Digite seu email"
       value="{{ user.email }}"
+      {# when exit the input field #}
+      onblur="Validate.apply(this, 'isEmail')"
     >
   </div>
 </div>
