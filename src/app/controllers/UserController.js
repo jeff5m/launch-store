@@ -4,9 +4,11 @@ module.exports = {
   registerForm(req, res) {
     return res.render("user/register")
   },
-  async post(res, req) {
+  async post(req, res) {
 
     const keys = Object.keys(req.body)
+
+    return console.log(req.body)
 
     for (key of keys) {
       if (req.body[key] == '') {
